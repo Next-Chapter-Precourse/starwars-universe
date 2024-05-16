@@ -1,44 +1,40 @@
-// Grab each button and add click event. 
-// When clicked the fetchData should be called to retrieve the data for that specific catagory.
 document.getElementById("characters").addEventListener("click", function () {
+  clearDataDisplay(); // Clear the display area whenever a new category is clicked
   fetchData("people");
 });
 
 document.getElementById("films").addEventListener("click", function () {
+  clearDataDisplay(); // Clear the display area whenever a new category is clicked
   fetchData("films");
 });
 
 document.getElementById("starships").addEventListener("click", function () {
-  // TODO: Fetch the data for the starships category.
+  clearDataDisplay(); // Clear the display area whenever a new category is clicked
+  fetchData("starships");
 });
 
 async function fetchData(category) {
-  // TODO: Visit the SWAPI documentation: https://swapi.dev/documentation and find the baseUrl. 
-  const baseUrl = "BASE_URL_HERE";
+  const baseUrl = "https://swapi.dev/api/";
   const url = `${baseUrl}${category}/`;
 
   try {
-    // TODO: Use url and fetch or axio to get the data from SWAPI. Set this data to called response.
+    const response = await fetch(url);
 
-    // Error Handling: If the response is not ok then we throw an error otherwise we continue
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
 
-    // TODO: Next we need create a variable called 'data' and set this to be the parsed JSON data.
-    // We can use the .json method on our reponse object to parse our incoming data.
+    const data = await response.json();
     displayData(data.results);
-  } catch (error) { // Error handling
-    // sends any errors to the console
+  } catch (error) {
     console.error("Fetch failed:", error);
-    // Displays error message on page when there is a error getting data.
     document.getElementById("dataDisplay").innerText = "Failed to load data";
   }
 }
 
 function displayData(data) {
   const display = document.getElementById("dataDisplay");
-  display.innerHTML = ""; // Clear previous data
+  display.innerHTML = ""; // Ensure the display is cleared before adding new data
 
   data.forEach((item) => {
     const card = document.createElement("div");
@@ -47,16 +43,23 @@ function displayData(data) {
     const cardBody = document.createElement("div");
     cardBody.className = "card-body";
 
-    // Create a title element, choose title based on available data
     const title = document.createElement("h5");
     title.className = "card-title";
-    title.textContent = item.name || item.title; // Adjust based on data type (character name, film title, etc.)
-    cardBody.appendChild(title);
+    title.textContent = item.name || item.title || 'N/A'; // Improved null handling
 
-    // Optionally, add more details to the card
     const details = document.createElement("p");
     details.className = "card-text";
-    details.textContent = `Additional details here...`; // Customize this line based on what data you want to show
+
+    // Dynamically display details based on category
+    if (item.release_date) {
+      details.textContent = `Released on: ${item.release_date}`;
+    } else if (item.manufacturer) {
+      details.textContent = `Manufacturer: ${item.manufacturer}`;
+    } else {
+      details.textContent = "Additional details not available.";
+    }
+
+    cardBody.appendChild(title);
     cardBody.appendChild(details);
 
     card.appendChild(cardBody);
@@ -64,3 +67,7 @@ function displayData(data) {
   });
 }
 
+function clearDataDisplay() {
+  const display = document.getElementById("dataDisplay");
+  display.innerHTML = "";
+}
