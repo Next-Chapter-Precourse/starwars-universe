@@ -9,16 +9,18 @@ document.getElementById("films").addEventListener("click", function () {
 });
 
 document.getElementById("starships").addEventListener("click", function () {
-  // TODO: Fetch the data for the starships category.
+   fetchData("starships");// TODO: Fetch the data for the starships category.
 });
 
 async function fetchData(category) {
   // TODO: Visit the SWAPI documentation: https://swapi.dev/documentation and find the baseUrl. 
-  const baseUrl = "BASE_URL_HERE";
+  const baseUrl = "https://swapi.dev/api/";
   const url = `${baseUrl}${category}/`;
 
   try {
-    // TODO: Use url and fetch or axio to get the data from SWAPI. Set this data to called response.
+     const response = await fetch(url); // Fetch data from SWAPI
+    const data = await response.json(); // Parse JSON response
+
 
     // Error Handling: If the response is not ok then we throw an error otherwise we continue
     if (!response.ok) {
@@ -47,20 +49,31 @@ function displayData(data) {
     const cardBody = document.createElement("div");
     cardBody.className = "card-body";
 
-    // Create a title element, choose title based on available data
     const title = document.createElement("h5");
     title.className = "card-title";
-    title.textContent = item.name || item.title; // Adjust based on data type (character name, film title, etc.)
+    title.textContent = item.name || item.title;
     cardBody.appendChild(title);
 
-    // Optionally, add more details to the card
     const details = document.createElement("p");
     details.className = "card-text";
-    details.textContent = `Additional details here...`; // Customize this line based on what data you want to show
+
+    // Additional details based on category
+    if (item.gender && item.birth_year) { // Character
+      details.textContent = `Gender: ${item.gender}, Birth Year: ${item.birth_year}`;
+    } else if (item.director && item.release_date) { // Film
+      details.textContent = `Director: ${item.director}, Release Date: ${item.release_date}`;
+    } else if (item.model && item.manufacturer) { // Starship
+      details.textContent = `Model: ${item.model}, Manufacturer: ${item.manufacturer}`;
+    } else {
+      details.textContent = "Additional details not available";
+    }
+
     cardBody.appendChild(details);
 
     card.appendChild(cardBody);
     display.appendChild(card);
   });
 }
+
+
 
