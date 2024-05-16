@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Star Wars Data Explorer</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: aqua;
+        color: brown;
+      }
+      .buttons {
+        margin-bottom: 20px;
+      }
+      button {
+        background-color: blanchedalmond;
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+      .card {
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        display: inline-block;
+        text-align: left;
+        max-width: 300px;
+      }
+    </style>
+  </head>
+
+  <body>
     <h1>Explore the Star Wars Universe</h1>
     <div class="buttons">
-        <button id="characters">Characters</button>
-        <button id="films">Films</button>
-        <button id="starships">Starships</button>
+      <button id="characters">Characters</button>
+      <button id="films">Films</button>
+      <button id="starships">Starships</button>
     </div>
     <div id="dataDisplay"></div>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
