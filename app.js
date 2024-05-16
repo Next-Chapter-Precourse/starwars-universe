@@ -140,11 +140,6 @@ async function displayData(data) {
       nameDetails.textContent = `Name: ${item.name}`;
       cardBody.appendChild(nameDetails);
 
-      const modelDetails = document.createElement("p");
-      modelDetails.className = "card-text";
-      modelDetails.textContent = `Model: ${item.model}`;
-      cardBody.appendChild(modelDetails);
-
       const manufacturerDetails = document.createElement("p");
       manufacturerDetails.className = "card-text";
       manufacturerDetails.textContent = `Manufacturer: ${item.manufacturer}`;
