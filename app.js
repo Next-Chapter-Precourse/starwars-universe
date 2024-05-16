@@ -182,6 +182,16 @@ async function displayData(data) {
       details.textContent = `Release date is ${item.release_date}`;
       cardBody.appendChild(details);
 
+      const episodeNumber = document.createElement("p");
+      episodeNumber.className = "card-text";
+      episodeNumber.textContent = `Episode: ${item.episode_id}`;
+      cardBody.appendChild(episodeNumber);
+
+      const director = document.createElement("p");
+      director.className = "card-text";
+      director.textContent = `Director: ${item.director}`;
+      cardBody.appendChild(director);
+
       const learnMoreButton = document.createElement("button");
       learnMoreButton.textContent = "Learn More";
       learnMoreButton.addEventListener("click", () => {
