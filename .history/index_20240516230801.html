@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Star Wars Data Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Explore the Star Wars Universe</h1>
+    <div class="buttons">
+        <button id="fetchCharacters">Characters</button>
+        <button id="films">Films</button>
+        <button id="starships">Starships</button>
+    </div>
+    <div id="dataDisplay"></div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modalText">Some text in the Modal..</div>
+      </div>
+    </div>
+
+    <script>
+        document.getElementById("modalText").textContent = "";
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
